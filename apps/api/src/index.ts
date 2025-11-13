@@ -17,6 +17,7 @@ import pricing from './routes/pricing'
 import wallet from './routes/wallet'
 import organizations from './routes/organizations'
 import host from './routes/host'
+import { startWorkers } from './workers/index'
 
 const app = express()
 app.use(express.json({
@@ -50,3 +51,7 @@ const port = parseInt(process.env.PORT || '8080', 10)
 app.listen(port, () => {
   console.log(`api listening on http://localhost:${port}`)
 })
+
+if (process.env.ENABLE_WORKERS === 'true') {
+  startWorkers().catch((e) => console.error('workers failed', e))
+}

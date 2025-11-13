@@ -7,7 +7,7 @@
     "dev": "tsx src/index.ts",
     "build": "tsc -p .",
     "start": "node dist/src/index.js",
-    "worker": "tsx src/workers/index.ts"
+    "worker": "WORKER_STANDALONE=true tsx src/workers/index.ts"
   },
   "dependencies": {
     "express": "4.21.2",

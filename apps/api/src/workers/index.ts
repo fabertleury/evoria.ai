@@ -10,10 +10,10 @@ const queues = {
   summary: process.env.RABBITMQ_QUEUE_SUMMARY || 'evoria.summary'
 }
 
-async function run() {
+export async function startWorkers() {
   if (!url) {
     console.error('RABBITMQ_URL não definido')
-    process.exit(1)
+    return
   }
   const conn = await amqp.connect(url)
   const ch = await conn.createChannel()
@@ -64,7 +64,9 @@ async function run() {
   process.on('SIGTERM', shutdown)
 }
 
-run().catch((err) => {
-  console.error('worker erro', err)
-  process.exit(1)
-})
+if (process.env.WORKER_STANDALONE === 'true') {
+  startWorkers().catch((err) => {
+    console.error('worker erro', err)
+    process.exit(1)
+  })
+}
