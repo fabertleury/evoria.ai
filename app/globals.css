@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a1020;
+  --card: #0f182c;
+  --muted: #94a3b8;
+  --primary: #EC4899;
+  --accent-start: #EC4899;
+  --accent-end: #f472b6;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: #e5e7eb;
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+.neon-gradient {
+  background: radial-gradient(1000px 1000px at 90% -10%, rgba(138, 108, 255, 0.15), transparent 40%),
+    radial-gradient(800px 800px at -10% 0%, rgba(255, 141, 210, 0.18), transparent 40%);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+  color: white;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(236, 72, 153, .35) }

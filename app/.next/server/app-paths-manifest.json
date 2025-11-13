@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/anfitriao/page": "app/anfitriao/page.js",
+  "/anfitriao/planos/page": "app/anfitriao/planos/page.js",
+  "/api/landing/route": "app/api/landing/route.js",
+  "/blog/page": "app/blog/page.js",
+  "/feed/page": "app/feed/page.js",
+  "/convidado/page": "app/convidado/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/whitelabel/page": "app/whitelabel/page.js",
+  "/telao/page": "app/telao/page.js",
+  "/admin/config/page": "app/admin/config/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/eventos/page": "app/admin/eventos/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/relatorios/page": "app/admin/relatorios/page.js",
+  "/admin/usuarios/page": "app/admin/usuarios/page.js",
+  "/admin/whitelabel/page": "app/admin/whitelabel/page.js",
+  "/admin/planos/page": "app/admin/planos/page.js"
+}
