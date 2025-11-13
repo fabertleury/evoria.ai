@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "title": "✨ Surpreenda seu público",
+    "subtitle": "Eventos com telão, feed e créditos em tempo real. Mais emojis, menos fotos reais.",
+    "lottieSrc": "https://lottie.host/4b0b3e8c-ec6d-4e19-8f8f-f1229b15d1d1/5hXK4oEwfe.json"
+  },
+  "novelty": {
+    "title": "Novidade",
+    "subtitle": "Feed social em tempo real",
+    "lottieSrc": "https://lottie.host/b8d12f1f-8e7a-4c1c-9b7e-b3f7b8a3f3e2/2bC1VgkzqM.json"
+  },
+  "galleryLotties": [
+    "https://lottie.host/6c2a8b57-6f7f-4dc7-b3fc-2bb996e1e2fa/6Jp0h2yM4h.json",
+    "https://lottie.host/7a1a7e61-3b2e-46e1-9dfb-1e2d9d87baf9/3nVvCqfQKf.json",
+    "https://lottie.host/2f5c01e9-3f4d-4cc9-9e2a-5a0f3a8c9b1e/JKfEwQyN1p.json"
+  ],
+  "prices": {
+    "basic": {
+      "name": "Básico 🧸",
+      "price": "R$29",
+      "items": [
+        "1 ano de acesso",
+        "1 lottie",
+        "Estilo Ghibli",
+        "Sem música"
+      ]
+    },
+    "premium": {
+      "name": "Premium 💖",
+      "price": "R$49",
+      "oldPrice": "R$59",
+      "items": [
+        "Pra sempre",
+        "3 lotties",
+        "Estilo Ghibli",
+        "Com música"
+      ],
+      "featured": true
+    }
+  },
+  "videos": [],
+  "featured": {
+    "leftText": "Em destaque no",
+    "rightText": "+4516 casais felizes",
+    "links": [
+      {
+        "icon": "tiktok",
+        "label": "TikTok",
+        "href": "https://tiktok.com/@seuperfil"
+      },
+      {
+        "icon": "instagram",
+        "label": "Instagram",
+        "href": "https://instagram.com/seuperfil"
+      },
+      {
+        "icon": "reddit",
+        "label": "Reddit",
+        "href": "https://reddit.com/r/seusub"
+      }
+    ]
+  }
+}

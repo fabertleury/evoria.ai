@@ -1,4 +1,4 @@
-// File: C:\developers\Evoria.ai\apps\web\app\api\landing\route.ts
+// File: C:\developers\Evoria.ai\app\app\api\landing\route.ts
 import * as entry from '../../../../../app/api/landing/route.js'
 import type { NextRequest } from 'next/server.js'
 

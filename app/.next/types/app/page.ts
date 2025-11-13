@@ -1,4 +1,4 @@
-// File: C:\developers\Evoria.ai\apps\web\app\page.tsx
+// File: C:\developers\Evoria.ai\app\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
