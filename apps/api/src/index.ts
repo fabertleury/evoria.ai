@@ -46,7 +46,7 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true })
 })
 
-const port = parseInt(process.env.PORT || '8000', 10)
+const port = parseInt(process.env.PORT || '8080', 10)
 app.listen(port, () => {
   console.log(`api listening on http://localhost:${port}`)
 })
