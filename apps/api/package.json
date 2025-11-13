@@ -15,6 +15,7 @@
     "bcryptjs": "2.4.3",
     "jsonwebtoken": "9.0.2",
     "pg": "8.13.1",
+    "drizzle-orm": "0.39.1",
     "@supabase/supabase-js": "2.45.4",
     "stripe": "14.0.0",
     "qrcode": "1.5.3",
@@ -25,6 +26,8 @@
     "typescript": "5.6.3",
     "@types/express": "4.17.21",
     "@types/jsonwebtoken": "9.0.6",
-    "dotenv": "16.4.5"
+    "dotenv": "16.4.5",
+    "drizzle-zod": "0.7.0",
+    "@types/pg": "8.6.6"
   }
 }
