@@ -8,6 +8,8 @@ import { stripe } from '../services/stripe'
 import { settings } from '@shared/schema'
 import { eq } from '@shared/schema'
 
+const baseUrl = process.env.WEB_BASE_URL || process.env.WEB_BASE_URL_PROD || process.env.WEB_BASE_URL_STAGING || 'http://localhost:3000'
+
 const router = Router()
 
 const createEventSchema = z.object({
@@ -70,8 +72,8 @@ router.post('/:id/modules/checkout', requireAuth, requireRole(['anfitriao','admi
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     line_items: items.map(i => ({ price_data: { currency: 'brl', product_data: { name: `Módulo ${i.name}` }, unit_amount: i.unit_amount }, quantity: 1 })),
-    success_url: `${process.env.WEB_BASE_URL}/anfitriao?modules=success`,
-    cancel_url: `${process.env.WEB_BASE_URL}/anfitriao?modules=cancel`,
+    success_url: `${baseUrl}/anfitriao?modules=success`,
+    cancel_url: `${baseUrl}/anfitriao?modules=cancel`,
     metadata: { eventId: id, modules: body.data.modules.join(',') }
   })
   res.json({ id: session.id, url: session.url })

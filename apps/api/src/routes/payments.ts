@@ -6,6 +6,8 @@ import { transactions, creditsWallets, plans } from '@shared/schema'
 import { requireAuth, AuthedRequest } from '../middleware/auth'
 import { eq, and } from '@shared/schema'
 
+const baseUrl = process.env.WEB_BASE_URL || process.env.WEB_BASE_URL_PROD || process.env.WEB_BASE_URL_STAGING || 'http://localhost:3000'
+
 const router = Router()
 
 router.post('/checkout', async (req, res) => {
@@ -15,8 +17,8 @@ router.post('/checkout', async (req, res) => {
     mode: 'payment',
     payment_method_types: ['card', 'pix'],
     line_items: [{ price_data: { currency: body.data.currency.toLowerCase(), product_data: { name: 'Evoria Credits' }, unit_amount: Math.round(body.data.amount * 100) }, quantity: 1 }],
-    success_url: `${process.env.WEB_BASE_URL}/anfitriao?payment=success`,
-    cancel_url: `${process.env.WEB_BASE_URL}/anfitriao?payment=cancel`,
+    success_url: `${baseUrl}/anfitriao?payment=success`,
+    cancel_url: `${baseUrl}/anfitriao?payment=cancel`,
     metadata: { eventId: body.data.eventId, guestId: body.data.guestId || '' }
   })
   res.json({ id: session.id, url: session.url })
@@ -40,8 +42,8 @@ router.post('/plan/checkout', requireAuth, async (req, res) => {
     mode: 'payment',
     payment_method_types: ['card', 'pix'],
     line_items: [{ price_data: { currency: (plan.currency || 'BRL').toLowerCase(), product_data: { name: `Plano ${plan.name}` }, unit_amount: Math.round(amount * 100) }, quantity: 1 }],
-    success_url: `${process.env.WEB_BASE_URL}/anfitriao?plan=success`,
-    cancel_url: `${process.env.WEB_BASE_URL}/anfitriao?plan=cancel`,
+    success_url: `${baseUrl}/anfitriao?plan=success`,
+    cancel_url: `${baseUrl}/anfitriao?plan=cancel`,
     metadata: { planId: plan.id, bundledEvents: String(bundled), userId: (req as AuthedRequest).user!.id }
   })
   res.json({ id: session.id, url: session.url })
