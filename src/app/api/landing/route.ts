@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { readFile, writeFile } from 'fs/promises'
 import path from 'path'
-import { LandingSchema } from '../../../../lib/landingSchema'
+import { LandingSchema } from '@/lib/landingSchema'
 
 const filePath = path.join(process.cwd(), 'data', 'landing.json')
 

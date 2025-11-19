@@ -8,24 +8,28 @@
       "badge": null,
       "emoji": "🧸",
       "features": [
-        "1 ano de acesso",
-        "1 foto",
-        "Fotos Ghibli",
-        "Sem música"
+        "1 Evento disponível",
+        "Geração de QR CODE e Link para os convidados",
+        "250 stories disponíveis (após isso os primeiros são deletados)",
+        "Convidados não precisam logar"
       ]
     },
     {
       "key": "premium",
       "name": "Premium",
-      "price": 49,
-      "oldPrice": 59,
+      "price": 79,
+      "oldPrice": 100,
       "badge": "Mais escolhido",
       "emoji": "💝",
       "features": [
-        "Pra sempre",
-        "3 fotos",
-        "Fotos Ghibli",
-        "Com música"
+        "3 Eventos disponíveis",
+        "Geração de QR CODE e Link para os convidados",
+        "500 stories disponíveis (após isso os primeiros são deletados)",
+        "Convidados não precisam logar",
+        "Telão ao vivo em tempo real",
+        "Moderação de conteúdo (aprovar/rejeitar fotos)",
+        "Filtros e efeitos especiais para convidados",
+        " Convites digitais personalizados"
       ]
     }
   ]

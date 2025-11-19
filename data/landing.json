@@ -39,13 +39,6 @@
     }
   },
   "videos": [],
-  "faq": [
-    { "q": "O que é a Evoria.ai?", "a": "Plataforma para eventos com QR Code, feed e telão em tempo real." },
-    { "q": "Quais são as formas de pagamento?", "a": "Cartão e Pix com Stripe, com possibilidade de parcelamento." },
-    { "q": "Quanto tempo demora para receber o QR Code?", "a": "Após criar o evento, o QR Code é gerado instantaneamente." },
-    { "q": "Posso editar minha página depois?", "a": "Sim, você pode editar nome, cores e módulos a qualquer momento." },
-    { "q": "A página tem validade?", "a": "Planos definem tempo de acesso; o Premium oferece acesso contínuo." }
-  ],
   "featured": {
     "leftText": "Em destaque no",
     "rightText": "+4516 casais felizes",
@@ -66,5 +59,27 @@
         "href": "https://reddit.com/r/seusub"
       }
     ]
-  }
+  },
+  "faq": [
+    {
+      "q": "O que é a Evoria.ai?",
+      "a": "Plataforma para eventos com QR Code, feed e telão em tempo real."
+    },
+    {
+      "q": "Quais são as formas de pagamento?",
+      "a": "Cartão e Pix com Stripe, com possibilidade de parcelamento."
+    },
+    {
+      "q": "Quanto tempo demora para receber o QR Code?",
+      "a": "Após criar o evento, o QR Code é gerado instantaneamente."
+    },
+    {
+      "q": "Posso editar minha página depois?",
+      "a": "Sim, você pode editar nome, cores e módulos a qualquer momento."
+    },
+    {
+      "q": "A página tem validade?",
+      "a": "Planos definem tempo de acesso; o Premium oferece acesso contínuo."
+    }
+  ]
 }

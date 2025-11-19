@@ -3,6 +3,7 @@
     "src/app/**/*",
     "src/components/**/*",
     "src/lib/**/*",
+    "src/types/**/*",
     ".next/types/**/*.ts"
   ],
   "exclude": [

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debug Login</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #0b0b12;
+      color: #f7f7f7;
+      padding: 40px;
+    }
+    input, button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 20px;
+      background: #1a1a2e;
+      border: 1px solid #333;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 Debug Login Test</h1>
+  
+  <input type="text" id="username" placeholder="Username" value="admin">
+  <input type="text" id="password" placeholder="Password" value="123456789">
+  <button onclick="testLogin()">Test Login</button>
+  
+  <div id="result"></div>
+  
+  <script>
+    async function testLogin() {
+      const username = document.getElementById('username').value
+      const password = document.getElementById('password').value
+      
+      try {
+        const res = await fetch('/api/test-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        })
+        
+        const data = await res.json()
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2)
+      } catch (error) {
+        document.getElementById('result').textContent = 'Error: ' + error.message
+      }
+    }
+  </script>
+</body>
+</html>
