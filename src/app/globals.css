@@ -338,3 +338,80 @@ a {
     transform: scale(1.03);
     box-shadow: 0 12px 32px rgba(139, 92, 246, 0.6) !important;
 }
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .social-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pricing-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pricing-icon {
+        font-size: 48px;
+        margin-top: 8px;
+    }
+
+    .pricing-name {
+        font-size: 18px;
+    }
+
+    .pricing-price {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    h1 {
+        font-size: 32px !important;
+    }
+
+    h2 {
+        font-size: 24px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .pricing-card {
+        padding: 16px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-link {
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+}

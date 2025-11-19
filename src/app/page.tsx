@@ -15,20 +15,20 @@ export default async function Page() {
   return (
     <>
       <div style={{ maxWidth: 1100, margin: '40px auto', padding: '0 20px' }}>
-        <section style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24, alignItems: 'center' }}>
+        <section className="hero">
           <div>
             <h1 style={{ fontSize: 46, marginTop: 12, marginBottom: 8, lineHeight: 1.1 }}>Transforme qualquer evento em uma experiência inesquecível.</h1>
             <p style={{ opacity: 0.9 }}>Stories, feed e telão ao vivo — tudo reunido em um único QR Code.</p>
             <p style={{ opacity: 0.8 }}>O jeito mais fácil e divertido de registrar a festa pela visão dos convidados.</p>
             <p style={{ opacity: 0.8 }}>Crie seu link, personalize, e deixe a magia acontecer. 🎉📱✨</p>
-            <div style={{ marginTop: 22, display: 'flex', gap: 12 }}>
+            <div style={{ marginTop: 22, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               <a href="/checkout" className="btn-primary">Comprar agora 💖</a>
               <a href="#precos" className="nav-link">Ver planos 🔖</a>
             </div>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center' }} className="hidden md:flex">
             <div style={{ border: '1px solid #1f1f2a', borderRadius: 18, padding: 16, background: 'rgba(255,255,255,0.02)' }}>
-              <LottieLocal data={purpleParty as any} className="w-[420px] h-[420px]" />
+              <LottieLocal data={purpleParty as any} className="w-[300px] h-[300px] md:w-[420px] md:h-[420px]" />
             </div>
           </div>
         </section>
@@ -128,20 +128,20 @@ export default async function Page() {
         </section>
 
         {/* Módulos Adicionais - Seção Persuasiva */}
-        <section id="modulos" style={{ marginTop: 80 }}>
-          <div style={{ textAlign: 'center', marginBottom: 50 }}>
-            <div style={{ display: 'inline-block', padding: '8px 16px', background: 'rgba(236,72,153,0.15)', border: '1px solid rgba(236,72,153,0.3)', borderRadius: 20, marginBottom: 16, fontSize: 13, fontWeight: 700, color: '#EC4899', textTransform: 'uppercase', letterSpacing: 1 }}>
+        <section id="modulos" style={{ marginTop: 60 }}>
+          <div style={{ textAlign: 'center', marginBottom: 40, padding: '0 16px' }}>
+            <div style={{ display: 'inline-block', padding: '6px 12px', background: 'rgba(236,72,153,0.15)', border: '1px solid rgba(236,72,153,0.3)', borderRadius: 20, marginBottom: 12, fontSize: 11, fontWeight: 700, color: '#EC4899', textTransform: 'uppercase', letterSpacing: 1 }} className="text-xs md:text-sm">
               ✨ Turbine seu Evento
             </div>
-            <h2 style={{ fontSize: 40, marginBottom: 16, lineHeight: 1.2 }}>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">
               Leve seu evento para o <span style={{ background: 'linear-gradient(135deg, #EC4899, #8B5CF6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>próximo nível</span>
             </h2>
-            <p style={{ fontSize: 18, opacity: 0.85, maxWidth: 700, margin: '0 auto' }}>
+            <p className="text-base md:text-lg opacity-85 max-w-2xl mx-auto">
               Adicione recursos premium que vão fazer seus convidados ficarem <strong>impressionados</strong>
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32, marginBottom: 50 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 40 }} className="px-4">
             {/* Telão ao Vivo */}
             <div style={{ position: 'relative', background: 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.15))', border: '2px solid rgba(139,92,246,0.3)', borderRadius: 24, padding: 32, overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: -50, right: -50, width: 150, height: 150, background: 'radial-gradient(circle, rgba(139,92,246,0.3), transparent)', borderRadius: '50%', filter: 'blur(40px)' }}></div>
@@ -262,80 +262,82 @@ export default async function Page() {
           </div>
 
           {/* CTA Combo */}
-          <div style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.1), rgba(16,185,129,0.1))', border: '2px solid rgba(6,182,212,0.3)', borderRadius: 24, padding: 40, textAlign: 'center' }}>
+          <div style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.1), rgba(16,185,129,0.1))', border: '2px solid rgba(6,182,212,0.3)', borderRadius: 24, textAlign: 'center' }} className="p-6 md:p-10 mx-4">
             <div style={{ fontSize: 48, marginBottom: 16 }}>🎁</div>
-            <h3 style={{ fontSize: 32, fontWeight: 800, marginBottom: 12 }}>
+            <h3 className="text-2xl md:text-3xl font-bold mb-3">
               Combo <span style={{ color: '#06B6D4' }}>Telão + Feed</span>
             </h3>
-            <p style={{ fontSize: 18, opacity: 0.9, marginBottom: 8 }}>
+            <p className="text-base md:text-lg opacity-90 mb-2">
               Ative os dois módulos juntos e ganhe <strong style={{ color: '#10B981' }}>desconto especial!</strong>
             </p>
-            <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 24 }}>
+            <p className="text-sm md:text-base opacity-75 mb-6">
               A experiência completa para um evento inesquecível
             </p>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 24 }}>
-              <span style={{ padding: '8px 16px', background: 'rgba(6,182,212,0.15)', borderRadius: 20, fontSize: 14, fontWeight: 700, color: '#06B6D4' }}>
+            <div className="flex justify-center gap-2 md:gap-3 flex-wrap mb-6">
+              <span className="text-xs md:text-sm px-3 md:px-4 py-2 rounded-full font-bold" style={{ background: 'rgba(6,182,212,0.15)', color: '#06B6D4' }}>
                 💰 Economia garantida
               </span>
-              <span style={{ padding: '8px 16px', background: 'rgba(16,185,129,0.15)', borderRadius: 20, fontSize: 14, fontWeight: 700, color: '#10B981' }}>
+              <span className="text-xs md:text-sm px-3 md:px-4 py-2 rounded-full font-bold" style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981' }}>
                 🔥 Mais vendido
               </span>
-              <span style={{ padding: '8px 16px', background: 'rgba(236,72,153,0.15)', borderRadius: 20, fontSize: 14, fontWeight: 700, color: '#EC4899' }}>
+              <span className="text-xs md:text-sm px-3 md:px-4 py-2 rounded-full font-bold" style={{ background: 'rgba(236,72,153,0.15)', color: '#EC4899' }}>
                 ⚡ Setup rápido
               </span>
             </div>
 
-            <a href="/login" style={{ display: 'inline-block', padding: '18px 40px', background: 'linear-gradient(135deg, #06B6D4, #10B981)', color: 'white', fontWeight: 800, fontSize: 18, borderRadius: 14, boxShadow: '0 12px 32px rgba(6,182,212,0.4)', border: 'none', cursor: 'pointer', transition: 'transform 0.2s ease' }} className="module-cta">
+            <a href="/checkout" className="module-cta inline-block text-base md:text-lg px-8 py-3 md:px-10 md:py-4 font-bold rounded-xl" style={{ background: 'linear-gradient(135deg, #06B6D4, #10B981)', color: 'white', boxShadow: '0 12px 32px rgba(6,182,212,0.4)', transition: 'transform 0.2s ease' }}>
               Quero o Combo Completo! 🎉
             </a>
           </div>
         </section>
 
         {/* Seção White-Label */}
-        <section id="whitelabel" style={{ marginTop: 80, background: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(236,72,153,0.1))', borderRadius: 24, padding: '60px 40px', border: '1px solid rgba(139,92,246,0.2)' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <h2 style={{ fontSize: 36, marginBottom: 16, background: 'linear-gradient(135deg, #8B5CF6, #EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Solução White-Label para Empresas
-            </h2>
-            <p style={{ fontSize: 18, opacity: 0.9, maxWidth: 700, margin: '0 auto' }}>
-              Perfeito para buffets, produtoras de eventos, fotógrafos profissionais e empresas que querem oferecer esta experiência com sua própria marca
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 40 }}>
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: 32, marginBottom: 12 }}>🎨</div>
-              <h3 style={{ fontSize: 20, marginBottom: 8, color: '#EC4899' }}>Sua Marca</h3>
-              <p style={{ opacity: 0.8, fontSize: 14 }}>Logotipo, cores e domínio personalizados. Tudo com a identidade visual da sua empresa.</p>
+        <section id="whitelabel" className="mt-12 md:mt-20 mx-4">
+          <div style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(236,72,153,0.1))', borderRadius: 24, border: '1px solid rgba(139,92,246,0.2)' }} className="p-8 md:p-16">
+            <div style={{ textAlign: 'center', marginBottom: 32 }} className="px-4">
+              <h2 className="text-2xl md:text-4xl font-bold mb-4">
+                Solução <span style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>White-Label</span> para Empresas
+              </h2>
+              <p className="text-base md:text-lg opacity-90 max-w-2xl mx-auto">
+                Perfeito para buffets, produtoras de eventos, fotógrafos profissionais e empresas que querem oferecer esta experiência com sua própria marca
+              </p>
             </div>
 
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: 32, marginBottom: 12 }}>💼</div>
-              <h3 style={{ fontSize: 20, marginBottom: 8, color: '#8B5CF6' }}>Multi-Cliente</h3>
-              <p style={{ opacity: 0.8, fontSize: 14 }}>Gerencie múltiplos eventos de diferentes clientes em um único painel administrativo.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 40 }}>
+              <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>🎨</div>
+                <h3 style={{ fontSize: 20, marginBottom: 8, color: '#EC4899' }}>Sua Marca</h3>
+                <p style={{ opacity: 0.8, fontSize: 14 }}>Logotipo, cores e domínio personalizados. Tudo com a identidade visual da sua empresa.</p>
+              </div>
+
+              <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>💼</div>
+                <h3 style={{ fontSize: 20, marginBottom: 8, color: '#8B5CF6' }}>Multi-Cliente</h3>
+                <p style={{ opacity: 0.8, fontSize: 14 }}>Gerencie múltiplos eventos de diferentes clientes em um único painel administrativo.</p>
+              </div>
+
+              <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>📊</div>
+                <h3 style={{ fontSize: 20, marginBottom: 8, color: '#06B6D4' }}>Relatórios</h3>
+                <p style={{ opacity: 0.8, fontSize: 14 }}>Analytics completos, relatórios de engajamento e métricas de cada evento.</p>
+              </div>
+
+              <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>🚀</div>
+                <h3 style={{ fontSize: 20, marginBottom: 8, color: '#10B981' }}>Suporte Premium</h3>
+                <p style={{ opacity: 0.8, fontSize: 14 }}>Suporte prioritário, onboarding personalizado e atualizações exclusivas.</p>
+              </div>
             </div>
 
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: 32, marginBottom: 12 }}>📊</div>
-              <h3 style={{ fontSize: 20, marginBottom: 8, color: '#06B6D4' }}>Relatórios</h3>
-              <p style={{ opacity: 0.8, fontSize: 14 }}>Analytics completos, relatórios de engajamento e métricas de cada evento.</p>
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ fontSize: 16, opacity: 0.9, marginBottom: 20 }}>
+                Ideal para: <strong>Buffets</strong> • <strong>Produtoras de Eventos</strong> • <strong>Fotógrafos Profissionais</strong> • <strong>Empresas de Entretenimento</strong>
+              </p>
+              <a href="#contato" className="btn-primary" style={{ display: 'inline-block', fontSize: 18, padding: '14px 32px' }}>
+                Solicitar Demonstração 🎯
+              </a>
             </div>
-
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: 24, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: 32, marginBottom: 12 }}>🚀</div>
-              <h3 style={{ fontSize: 20, marginBottom: 8, color: '#10B981' }}>Suporte Premium</h3>
-              <p style={{ opacity: 0.8, fontSize: 14 }}>Suporte prioritário, onboarding personalizado e atualizações exclusivas.</p>
-            </div>
-          </div>
-
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: 16, opacity: 0.9, marginBottom: 20 }}>
-              Ideal para: <strong>Buffets</strong> • <strong>Produtoras de Eventos</strong> • <strong>Fotógrafos Profissionais</strong> • <strong>Empresas de Entretenimento</strong>
-            </p>
-            <a href="#contato" className="btn-primary" style={{ display: 'inline-block', fontSize: 18, padding: '14px 32px' }}>
-              Solicitar Demonstração 🎯
-            </a>
           </div>
         </section>
 
