@@ -70,16 +70,16 @@ export default function Page() {
           const j = await r.json()
           setCfg(j)
         }
-      } catch {}
+      } catch { }
     }
     load()
   }, [])
   const hero = cfg?.hero ?? { title: '✨ Surpreenda seu público', subtitle: 'Eventos com telão, feed e créditos em tempo real. Mais emojis, menos fotos reais.', lottieSrc: 'https://lottie.host/4b0b3e8c-ec6d-4e19-8f8f-f1229b15d1d1/5hXK4oEwfe.json' }
   const novelty = cfg?.novelty ?? { title: 'Novidade', subtitle: 'Feed social em tempo real', lottieSrc: 'https://lottie.host/b8d12f1f-8e7a-4c1c-9b7e-b3f7b8a3f3e2/2bC1VgkzqM.json' }
-  const gallery: string[] = cfg?.galleryLotties ?? ['https://lottie.host/6c2a8b57-6f7f-4dc7-b3fc-2bb996e1e2fa/6Jp0h2yM4h.json','https://lottie.host/7a1a7e61-3b2e-46e1-9dfb-1e2d9d87baf9/3nVvCqfQKf.json','https://lottie.host/2f5c01e9-3f4d-4cc9-9e2a-5a0f3a8c9b1e/JKfEwQyN1p.json']
-  const prices = cfg?.prices ?? { basic: { name: 'Básico 🧸', price: 'R$29', items: ['1 ano de acesso','1 lottie','Estilo Ghibli','Sem música'] }, premium: { name: 'Premium 💖', price: 'R$49', oldPrice: 'R$59', items: ['Pra sempre','3 lotties','Estilo Ghibli','Com música'], featured: true } }
+  const gallery: string[] = cfg?.galleryLotties ?? ['https://lottie.host/6c2a8b57-6f7f-4dc7-b3fc-2bb996e1e2fa/6Jp0h2yM4h.json', 'https://lottie.host/7a1a7e61-3b2e-46e1-9dfb-1e2d9d87baf9/3nVvCqfQKf.json', 'https://lottie.host/2f5c01e9-3f4d-4cc9-9e2a-5a0f3a8c9b1e/JKfEwQyN1p.json']
+  const prices = cfg?.prices ?? { basic: { name: 'Básico 🧸', price: 'R$29', items: ['1 ano de acesso', '1 lottie', 'Estilo Ghibli', 'Sem música'] }, premium: { name: 'Premium 💖', price: 'R$49', oldPrice: 'R$59', items: ['Pra sempre', '3 lotties', 'Estilo Ghibli', 'Com música'], featured: true } }
   const videos: string[] = cfg?.videos ?? []
-  const featured = cfg?.featured ?? { leftText: 'Em destaque no', rightText: '+4516 casais felizes', links: [ { icon: 'tiktok', label: 'TikTok', href: '#' }, { icon: 'instagram', label: 'Instagram', href: '#' }, { icon: 'reddit', label: 'Reddit', href: '#' } ] }
+  const featured = cfg?.featured ?? { leftText: 'Em destaque no', rightText: '+4516 casais felizes', links: [{ icon: 'tiktok', label: 'TikTok', href: '#' }, { icon: 'instagram', label: 'Instagram', href: '#' }, { icon: 'reddit', label: 'Reddit', href: '#' }] }
   return (
     <div className="relative">
       <section className="container pt-16 md:pt-24 pb-16 md:pb-24">
@@ -101,24 +101,34 @@ export default function Page() {
         </div>
       </section>
 
+      <section className="container pb-20">
+        <SectionTitle title="Surpresas que viralizaram" subtitle="Resultados reais de quem usou" />
+        <div className="grid md:grid-cols-3 gap-6">
+          {gallery.map((src) => (
+            <div key={src} className="rounded-xl border border-slate-800 glass overflow-hidden flex items-center justify-center bg-[#0f182c] h-72">
+              <LottieRemote src={src} className="w-40 h-40" />
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section id="como" className="container pb-20">
         <SectionTitle title="Como fazer?" subtitle="É rápido, simples e divertido" />
-        <div className="grid md:grid-cols-4 gap-6">
-          <div className="rounded-xl border border-slate-800 glass p-6">
-            <div className="text-2xl">1</div>
-            <p className="text-muted">Crie seu evento e personalize</p>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="rounded-2xl border border-slate-800 glass p-8 text-center hover:border-pink-500/50 transition-colors group">
+            <div className="w-16 h-16 mx-auto bg-slate-900 rounded-full flex items-center justify-center text-2xl font-bold text-pink-500 mb-6 group-hover:scale-110 transition-transform">1</div>
+            <h3 className="text-xl font-bold mb-3">Crie sua conta</h3>
+            <p className="text-muted">Cadastre-se em segundos e tenha acesso ao painel de controle.</p>
           </div>
-          <div className="rounded-xl border border-slate-800 glass p-6">
-            <div className="text-2xl">2</div>
-            <p className="text-muted">Divulgue o link para os participantes</p>
+          <div className="rounded-2xl border border-slate-800 glass p-8 text-center hover:border-purple-500/50 transition-colors group">
+            <div className="w-16 h-16 mx-auto bg-slate-900 rounded-full flex items-center justify-center text-2xl font-bold text-purple-500 mb-6 group-hover:scale-110 transition-transform">2</div>
+            <h3 className="text-xl font-bold mb-3">Cadastre seu evento</h3>
+            <p className="text-muted">Personalize o telão, escolha os módulos e configure tudo do seu jeito.</p>
           </div>
-          <div className="rounded-xl border border-slate-800 glass p-6">
-            <div className="text-2xl">3</div>
-            <p className="text-muted">Acompanhe o Telão ao Vivo</p>
-          </div>
-          <div className="rounded-xl border border-slate-800 glass p-6">
-            <div className="text-2xl">4</div>
-            <p className="text-muted">Monetize com créditos</p>
+          <div className="rounded-2xl border border-slate-800 glass p-8 text-center hover:border-blue-500/50 transition-colors group">
+            <div className="w-16 h-16 mx-auto bg-slate-900 rounded-full flex items-center justify-center text-2xl font-bold text-blue-500 mb-6 group-hover:scale-110 transition-transform">3</div>
+            <h3 className="text-xl font-bold mb-3">Compartilhe o QR Code</h3>
+            <p className="text-muted">Comece a receber interações e veja seu evento viralizar.</p>
           </div>
         </div>
       </section>
@@ -146,26 +156,32 @@ export default function Page() {
 
       <section id="precos" className="container pb-20">
         <SectionTitle title="Preços" subtitle="Escolha a melhor opção" />
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
           <PriceCard name={prices.basic.name} price={prices.basic.price} items={prices.basic.items} />
           <PriceCard name={prices.premium.name} price={prices.premium.price} oldPrice={prices.premium.oldPrice} items={prices.premium.items} featured={prices.premium.featured} />
         </div>
-      </section>
 
-      <section className="container pb-20">
-        <SectionTitle title="Surpresas que viralizaram" subtitle="Resultados reais de quem usou" />
-        <div className="grid md:grid-cols-3 gap-6">
-          {gallery.map((src) => (
-            <div key={src} className="rounded-xl border border-slate-800 glass overflow-hidden flex items-center justify-center bg-[#0f182c] h-72">
-              <LottieRemote src={src} className="w-40 h-40" />
+        {cfg?.modules?.length ? (
+          <>
+            <SectionTitle title="Módulos Adicionais" subtitle="Turbine seu evento com extras" />
+            <div className="grid md:grid-cols-3 gap-6">
+              {cfg.modules.map((m: any) => (
+                <div key={m.id} className="rounded-xl border border-slate-800 glass p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
+                  <div>
+                    <h3 className="text-lg font-bold mb-2 text-white">{m.name}</h3>
+                    <p className="text-sm text-muted mb-4">{m.description}</p>
+                  </div>
+                  <div className="text-xl font-bold text-blue-400">R$ {m.price}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : null}
       </section>
 
       {videos.length ? (
         <section className="container pb-20">
-          <SectionTitle title="Surpresas que viralizaram" subtitle="Conteúdos reais do TikTok e Reels" />
+          <SectionTitle title="Conteúdos do TikTok e Reels" subtitle="Veja o que estão falando" />
           <div className="grid md:grid-cols-3 gap-6">
             {videos.map((u) => (
               <div key={u} className="rounded-xl border border-slate-800 glass overflow-hidden">
@@ -183,8 +199,6 @@ export default function Page() {
           <Link href="/register" className="btn-primary px-5 py-3 rounded-md">Quero fazer meu evento</Link>
         </div>
       </section>
-
-      
     </div>
   )
 }

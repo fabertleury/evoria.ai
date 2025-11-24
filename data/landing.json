@@ -16,29 +16,49 @@
   ],
   "prices": {
     "basic": {
-      "name": "Básico 🧸",
-      "price": "R$29",
+      "name": "Básico",
+      "price": "R$299",
       "items": [
-        "1 ano de acesso",
-        "1 lottie",
-        "Estilo Ghibli",
-        "Sem música"
+        "Até 100 convidados",
+        "QR Code Personalizado",
+        "Stories incluso"
       ]
     },
     "premium": {
-      "name": "Premium 💖",
-      "price": "R$49",
-      "oldPrice": "R$59",
+      "name": "Premium",
+      "price": "R$599",
       "items": [
-        "Pra sempre",
-        "3 lotties",
-        "Estilo Ghibli",
-        "Com música"
+        "Convidados Ilimitados",
+        "Suporte Prioritário",
+        "Feed, Telão e Stories inclusos"
       ],
       "featured": true
     }
   },
-  "videos": [],
+  "modules": [
+    {
+      "id": 1,
+      "name": "Feed Ao Vivo",
+      "description": "Feed de fotos em tempo real",
+      "price": 150
+    },
+    {
+      "id": 2,
+      "name": "Telão Interativo",
+      "description": "Exibição de fotos no telão",
+      "price": 200
+    },
+    {
+      "id": 3,
+      "name": "Stories Compartilhados",
+      "description": "Álbum de stories colaborativo do evento",
+      "price": 100
+    }
+  ],
+  "videos": [
+    "/viral-event-1.mp4",
+    "/viral-event-2.mp4"
+  ],
   "featured": {
     "leftText": "Em destaque no",
     "rightText": "+4516 casais felizes",
@@ -81,5 +101,6 @@
       "q": "A página tem validade?",
       "a": "Planos definem tempo de acesso; o Premium oferece acesso contínuo."
     }
-  ]
+  ],
+  "whatsappNumber": "5562981287058"
 }

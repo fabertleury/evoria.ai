@@ -20,7 +20,14 @@ export const LandingSchema = z.object({
   }),
   videos: z.array(z.string().url()).max(24),
   featured: z.object({ leftText: z.string(), rightText: z.string(), links: z.array(FeaturedLinkSchema).max(8) }),
+  modules: z.array(z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    price: z.number()
+  })).optional(),
   faq: z.array(z.object({ q: z.string(), a: z.string() })).max(20).optional(),
+  whatsappNumber: z.string().optional(),
 })
 
 export type LandingConfig = z.infer<typeof LandingSchema>

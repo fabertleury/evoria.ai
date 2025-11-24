@@ -33,7 +33,7 @@ export default function LoginPage() {
       if (data.user?.role === 'admin') {
         window.location.href = '/admin/dashboard'
       } else if (data.user?.role === 'anfitriao') {
-        window.location.href = '/anfitriao'
+        window.location.href = '/cliente/dashboard'
       } else {
         window.location.href = '/'
       }
@@ -112,7 +112,21 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-6 pt-6 border-t border-slate-800">
+            <p className="text-center text-slate-400 text-sm mb-3">
+              Não tem uma conta?
+            </p>
+            <a
+              href="/cadastro"
+              className="block w-full py-3 px-4 text-center bg-slate-800/50 hover:bg-slate-800 
+                       text-white font-semibold rounded-lg 
+                       transition-all duration-200 border border-slate-700 hover:border-slate-600"
+            >
+              Criar conta grátis
+            </a>
+          </div>
+
+          <div className="mt-4 text-center">
             <a href="/" className="text-sm text-slate-400 hover:text-white transition-colors">
               ← Voltar para o site
             </a>

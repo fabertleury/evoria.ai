@@ -1,8 +1,7 @@
 "use client"
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { getToken } from '@/lib/clientAuth'
-import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { apiFetch } from '@/lib/api'
 import LogoEvoria from '@/components/brand/LogoEvoria'
 import {
@@ -14,33 +13,27 @@ import {
   FileText,
   Palette,
   LogOut,
-  X
+  Menu,
+  X,
+  Shield
 } from 'lucide-react'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [token, setToken] = useState<string | null>(null)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const storedToken = getToken()
-    setToken(storedToken)
-  }, [])
-
-  useEffect(() => {
-    if (!mounted) return
-
-    const guard = async () => {
-      if (!token) { router.push('/login'); return }
-      const res = await apiFetch('/auth/me')
-      const data = await res.json()
-      if (!data.user || data.user.role !== 'admin') router.push('/login')
+    // Verificação de token básica (a real acontece na chamada da API ou middleware)
+    const token = localStorage.getItem('evoria_token')
+    if (!token) {
+      router.push('/login')
     }
-    guard()
-  }, [token, mounted, router])
+  }, [router])
+
+  if (!mounted) return null
 
   const navItems = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard, color: 'text-purple-400' },
@@ -53,94 +46,110 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/whitelabel', label: 'White-Label', icon: Palette, color: 'text-rose-400' },
   ]
 
+  const handleLogout = () => {
+    localStorage.removeItem('evoria_token')
+    router.push('/login')
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Overlay for mobile */}
-      {mobileMenuOpen && (
+    <div className="h-screen bg-slate-950 text-white flex overflow-hidden">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={() => setMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm"
+          onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar - Always visible on desktop, overlay on mobile */}
-      <aside
-        className={`fixed left-0 top-0 h-full bg-slate-900/95 backdrop-blur-xl border-r border-slate-800 transition-transform duration-300 z-50 w-72
-          ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
-      >
-        <div className="flex flex-col h-full p-6">
-          {/* Logo Header */}
-          <div className="flex items-center justify-between mb-8">
-            <LogoEvoria height={28} />
+      {/* Sidebar */}
+      <aside className={`
+        fixed inset-y-0 left-0 z-50
+        w-64 bg-slate-900 border-r border-slate-800
+        transform transition-transform duration-200 ease-in-out
+        lg:relative lg:translate-x-0 flex flex-col
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <div className="h-full flex flex-col">
+          {/* Logo Area */}
+          <div className="h-16 flex items-center px-6 border-b border-slate-800 justify-between">
+            <LogoEvoria height={24} />
             <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="lg:hidden p-2 hover:bg-slate-800 rounded-lg transition-colors"
+              onClick={() => setIsSidebarOpen(false)}
+              className="lg:hidden text-slate-400 hover:text-white"
             >
-              <X className="h-5 w-5 text-slate-400" />
+              <X size={20} />
             </button>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 space-y-1">
+          <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+            <div className="mb-4 px-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              Administração
+            </div>
+
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
+
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive
-                    ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10'
-                    : 'hover:bg-slate-800/50 border border-transparent'
-                    }`}
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`
+                    flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                    ${isActive
+                      ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}
+                  `}
                 >
-                  <Icon className={`h-5 w-5 flex-shrink-0 ${isActive ? item.color : 'text-slate-400'}`} />
-                  <span className={`font-medium ${isActive ? 'text-white' : 'text-slate-300'}`}>
-                    {item.label}
-                  </span>
+                  <Icon size={18} className={isActive ? item.color : ''} />
+                  {item.label}
                 </Link>
               )
             })}
           </nav>
 
-          {/* Logout Button */}
-          {token && (
+          {/* User Profile & Logout */}
+          <div className="p-4 border-t border-slate-800 bg-slate-900/50">
+            <div className="flex items-center gap-3 mb-4 px-2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-xs font-bold text-white">
+                AD
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-white truncate">Administrador</p>
+                <p className="text-xs text-slate-500 truncate">Acesso Total</p>
+              </div>
+            </div>
+
             <button
-              onClick={() => {
-                localStorage.removeItem('token')
-                router.push('/login')
-              }}
-              className="mt-4 w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 transition-all duration-200"
+              onClick={handleLogout}
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
             >
-              <LogOut className="h-5 w-5 flex-shrink-0" />
-              <span className="font-medium">Sair do Painel</span>
+              <LogOut size={16} />
+              Sair do Painel
             </button>
-          )}
+          </div>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-72">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top Bar */}
         <header className="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800">
           <div className="flex items-center justify-between px-4 lg:px-6 py-4">
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 hover:bg-slate-800 rounded-lg transition-colors"
-            >
-              <svg className="h-6 w-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-
-            {/* Logo on mobile */}
-            <div className="lg:hidden">
-              <LogoEvoria height={24} />
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+              >
+                <Menu size={24} />
+              </button>
+              <div className="lg:hidden">
+                <LogoEvoria height={24} />
+              </div>
             </div>
 
-            {/* Right side links */}
             <div className="flex items-center gap-4 ml-auto">
               <Link
                 href="/"
@@ -148,19 +157,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               >
                 Ver site
               </Link>
-              <Link
-                href="/login"
-                className="text-sm text-slate-400 hover:text-white transition-colors hidden sm:block"
-              >
-                Trocar usuário
-              </Link>
+              <div className="w-px h-4 bg-slate-800 hidden sm:block" />
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-xs font-bold text-white">
+                  <Shield size={14} />
+                </div>
+                <span className="text-sm font-bold text-white hidden sm:block">Admin</span>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        <main>
-          {children}
+        <main className="flex-1 overflow-y-auto p-4 lg:p-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>

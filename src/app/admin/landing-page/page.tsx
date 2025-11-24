@@ -1,10 +1,9 @@
 "use client"
 import { useEffect, useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Save, Video, HelpCircle, Package, Plus, X, Check, Trash2 } from 'lucide-react'
+import { Save, Video, HelpCircle, Plus, Trash2 } from 'lucide-react'
 
 export default function AdminLandingPage() {
-    const [plans, setPlans] = useState<any[]>([])
     const [videos, setVideos] = useState<string[]>([])
     const [faq, setFaq] = useState<{ q: string; a: string }[]>([])
     const [whatsappNumber, setWhatsappNumber] = useState('')
@@ -14,14 +13,9 @@ export default function AdminLandingPage() {
     useEffect(() => {
         const load = async () => {
             try {
-                const [plansRes, landingRes] = await Promise.all([
-                    fetch('/api/pricing'),
-                    fetch('/api/landing')
-                ])
-                const plansData = await plansRes.json()
+                const landingRes = await fetch('/api/landing')
                 const landingData = await landingRes.json()
 
-                setPlans(plansData.plans || [])
                 setVideos(landingData.videos || [])
                 setFaq(landingData.faq || [])
                 setWhatsappNumber(landingData.whatsappNumber || '5511999999999')
@@ -33,42 +27,6 @@ export default function AdminLandingPage() {
         }
         load()
     }, [])
-
-    function updatePlan(i: number, field: string, value: any) {
-        setPlans(prev => prev.map((p, idx) => idx === i ? { ...p, [field]: value } : p))
-    }
-
-    function addFeature(planIndex: number) {
-        setPlans(prev => prev.map((p, idx) => {
-            if (idx === planIndex) {
-                const features = p.features || []
-                return { ...p, features: [...features, ''] }
-            }
-            return p
-        }))
-    }
-
-    function updateFeature(planIndex: number, featureIndex: number, value: string) {
-        setPlans(prev => prev.map((p, idx) => {
-            if (idx === planIndex) {
-                const features = [...(p.features || [])]
-                features[featureIndex] = value
-                return { ...p, features }
-            }
-            return p
-        }))
-    }
-
-    function removeFeature(planIndex: number, featureIndex: number) {
-        setPlans(prev => prev.map((p, idx) => {
-            if (idx === planIndex) {
-                const features = [...(p.features || [])]
-                features.splice(featureIndex, 1)
-                return { ...p, features }
-            }
-            return p
-        }))
-    }
 
     // Funções para vídeos
     function addVideo() {
@@ -94,22 +52,6 @@ export default function AdminLandingPage() {
 
     function removeFaq(index: number) {
         setFaq(prev => prev.filter((_, idx) => idx !== index))
-    }
-
-    async function savePlans() {
-        setSaving(true)
-        try {
-            await fetch('/api/pricing', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plans })
-            })
-            alert('✅ Planos atualizados com sucesso!')
-        } catch (error) {
-            alert('❌ Erro ao salvar planos')
-        } finally {
-            setSaving(false)
-        }
     }
 
     async function saveContent() {
@@ -148,7 +90,7 @@ export default function AdminLandingPage() {
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                     Configurar Landing Page
                 </h1>
-                <p className="text-slate-400">Atualize os planos, vídeos, FAQ e WhatsApp do site</p>
+                <p className="text-slate-400">Atualize os vídeos, FAQ e WhatsApp do site</p>
             </div>
 
             {/* WhatsApp */}
@@ -190,125 +132,6 @@ export default function AdminLandingPage() {
                     </p>
                 </CardContent>
             </Card>
-
-            {/* Planos */}
-            <div>
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-                        <Package className="h-5 w-5 text-purple-400" />
-                        Planos de Preços
-                    </h2>
-                    <button
-                        onClick={savePlans}
-                        disabled={saving}
-                        className="flex items-center gap-2 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors disabled:opacity-50"
-                    >
-                        <Save className="h-4 w-4" />
-                        Salvar Planos
-                    </button>
-                </div>
-
-                <div className="grid gap-6 lg:grid-cols-2">
-                    {plans.map((p, i) => (
-                        <Card key={p.key || i} className="border-slate-800 bg-slate-900/50 backdrop-blur-sm">
-                            <CardHeader className="border-b border-slate-800">
-                                <CardTitle className="text-white">{p.name}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-6 space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                                            Preço (R$)
-                                        </label>
-                                        <input
-                                            type="number"
-                                            value={p.price}
-                                            onChange={e => updatePlan(i, 'price', Number(e.target.value))}
-                                            className="w-full px-4 py-3 bg-white/10 border border-slate-700 rounded-lg 
-                               text-white placeholder-slate-500
-                               focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
-                               transition-all duration-200"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                                            Preço Antigo
-                                        </label>
-                                        <input
-                                            type="number"
-                                            value={p.oldPrice || ''}
-                                            onChange={e => updatePlan(i, 'oldPrice', e.target.value ? Number(e.target.value) : null)}
-                                            placeholder="Opcional"
-                                            className="w-full px-4 py-3 bg-white/10 border border-slate-700 rounded-lg 
-                               text-white placeholder-slate-500
-                               focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
-                               transition-all duration-200"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                                        Badge (opcional)
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={p.badge || ''}
-                                        onChange={e => updatePlan(i, 'badge', e.target.value || null)}
-                                        placeholder="Ex: Mais Popular"
-                                        className="w-full px-4 py-3 bg-white/10 border border-slate-700 rounded-lg 
-                             text-white placeholder-slate-500
-                             focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
-                             transition-all duration-200"
-                                    />
-                                </div>
-
-                                <div>
-                                    <div className="flex items-center justify-between mb-3">
-                                        <label className="text-sm font-medium text-slate-300">
-                                            Recursos Incluídos
-                                        </label>
-                                        <button
-                                            onClick={() => addFeature(i)}
-                                            className="flex items-center gap-1 px-2 py-1 text-xs bg-purple-500/20 text-purple-400 rounded hover:bg-purple-500/30 transition-colors"
-                                        >
-                                            <Plus className="h-3 w-3" />
-                                            Adicionar
-                                        </button>
-                                    </div>
-                                    <div className="space-y-2">
-                                        {(p.features || []).map((feature: string, idx: number) => (
-                                            <div key={idx} className="flex items-center gap-2">
-                                                <Check className="h-4 w-4 text-green-400 flex-shrink-0" />
-                                                <input
-                                                    type="text"
-                                                    value={feature}
-                                                    onChange={e => updateFeature(i, idx, e.target.value)}
-                                                    placeholder="Digite o recurso..."
-                                                    className="flex-1 px-3 py-2 bg-white/10 border border-slate-700 rounded-lg 
-                                   text-white placeholder-slate-500 text-sm
-                                   focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
-                                   transition-all duration-200"
-                                                />
-                                                <button
-                                                    onClick={() => removeFeature(i, idx)}
-                                                    className="p-2 text-red-400 hover:bg-red-500/10 rounded transition-colors"
-                                                >
-                                                    <X className="h-4 w-4" />
-                                                </button>
-                                            </div>
-                                        ))}
-                                        {(!p.features || p.features.length === 0) && (
-                                            <p className="text-sm text-slate-500 italic">Nenhum recurso adicionado</p>
-                                        )}
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
 
             {/* Vídeos */}
             <div>

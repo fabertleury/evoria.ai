@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const isAdmin = pathname.startsWith('/admin')
+  const isPublicPage = pathname === '/' || pathname.startsWith('/blog') || pathname.startsWith('/termos') || pathname.startsWith('/privacidade') || pathname === '/login' || pathname === '/cadastro'
+  const showHeader = isPublicPage && !pathname.startsWith('/admin') && !pathname.startsWith('/cliente') && !pathname.startsWith('/afiliado')
   return (
     <html lang="pt-BR">
       <head>
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
       </head>
       <body suppressHydrationWarning style={{ fontFamily: 'Outfit, Outfit Fallback, system-ui, Arial', background: '#0b0b12', color: '#f7f7f7' }}>
-        {!isAdmin && (
+        {showHeader && (
           <header style={{ position: 'sticky', top: 0, background: 'rgba(12,12,20,0.6)', backdropFilter: 'blur(8px)', borderBottom: '1px solid #1f1f2a', zIndex: 50 }}>
             <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1100, margin: '0 auto', padding: '14px 20px' }}>
               <a href="/"><LogoEvoria height={26} /></a>
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </header>
         )}
         <main style={{ minHeight: '70vh' }}>{children}</main>
-        {!isAdmin && (
+        {showHeader && (
           <footer style={{ borderTop: '1px solid #1f1f2a', marginTop: 50 }}>
             <div className="footer-grid">
               <div>

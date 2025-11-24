@@ -4,16 +4,20 @@ import purpleParty from '../../Purple party.json'
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card'
 import SocialEmbed from '@/components/client/SocialEmbed'
 import WhatsAppButton from '@/components/client/WhatsAppButton'
+import AffiliateTracker from '@/components/client/AffiliateTracker'
+import PricingCard from '@/components/client/PricingCard'
 
 export default async function Page() {
   const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:5000'
   const res = await fetch(`${base}/api/pricing`, { cache: 'no-store' })
   const pricing = await res.json().catch(() => ({ plans: [] }))
   const landingRes = await fetch(`${base}/api/landing`, { cache: 'no-store' })
-  const landing = await landingRes.json().catch(() => ({ videos: [] }))
+  const landing = await landingRes.json().catch(() => ({ videos: [], faq: [] }))
 
   return (
-    <>
+    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-purple-500/30">
+      <AffiliateTracker />
+
       <div style={{ maxWidth: 1100, margin: '40px auto', padding: '0 20px' }}>
         <section className="hero">
           <div>
@@ -33,97 +37,74 @@ export default async function Page() {
           </div>
         </section>
 
+        <section id="como" className="py-12 md:py-20 relative">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Como funciona?</h2>
+            <p className="text-slate-400 text-lg">É muito simples começar a usar o Evoria em seu evento</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 px-4">
+            {/* Step 1 */}
+            <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl text-center hover:border-pink-500/50 transition-colors group">
+              <div className="w-16 h-16 bg-pink-500/10 text-pink-500 rounded-2xl flex items-center justify-center text-3xl font-bold mx-auto mb-6 group-hover:scale-110 transition-transform">
+                1
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white">Crie sua conta</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">
+                Cadastre-se em segundos e tenha acesso imediato ao painel administrativo para configurar seu evento.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl text-center hover:border-purple-500/50 transition-colors group">
+              <div className="w-16 h-16 bg-purple-500/10 text-purple-500 rounded-2xl flex items-center justify-center text-3xl font-bold mx-auto mb-6 group-hover:scale-110 transition-transform">
+                2
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white">Personalize</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">
+                Adicione nome, data, escolha os módulos (Stories, Feed, Telão) e deixe tudo com a sua cara.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl text-center hover:border-cyan-500/50 transition-colors group">
+              <div className="w-16 h-16 bg-cyan-500/10 text-cyan-500 rounded-2xl flex items-center justify-center text-3xl font-bold mx-auto mb-6 group-hover:scale-110 transition-transform">
+                3
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white">Compartilhe</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">
+                Imprima o QR Code ou envie o link. Seus convidados postam e a mágica acontece ao vivo!
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section id="precos" style={{ marginTop: 70 }}>
           <div style={{ textAlign: 'center', marginBottom: 32 }}>
             <h2 style={{ fontSize: 36, marginBottom: 12 }}>Escolha seu Plano</h2>
             <p style={{ opacity: 0.8, fontSize: 18 }}>Transforme seus eventos em experiências inesquecíveis</p>
           </div>
           <div className="pricing-grid">
-            {pricing.plans?.map((p: any, idx: number) => {
-              // Define emojis baseados no índice ou nome do plano
-              const planEmojis = ['🎊', '🎉', '🎭', '✨']
-              const emoji = p.emoji || planEmojis[idx % planEmojis.length]
+            {pricing.plans?.map((p: any, idx: number) => (
+              <PricingCard
+                key={p.key}
+                plan={p}
+                index={idx}
+                whatsappNumber={landing.whatsappNumber || '5511999999999'}
+              />
+            ))}
+          </div>
+        </section>
 
-              return (
-                <Card key={p.key} className={`pricing-card ${p.badge ? 'card-highlight' : ''}`}>
-                  {p.badge && <span className="pricing-badge">★ {p.badge}</span>}
-                  <CardHeader>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 8, color: '#EC4899' }}>{p.name}</div>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 12 }}>
-                          <span style={{ fontSize: 42, fontWeight: 800, lineHeight: 1 }}>R${p.price}</span>
-                          {p.oldPrice && (
-                            <span style={{ fontSize: 18, textDecoration: 'line-through', opacity: 0.5, fontWeight: 600 }}>
-                              R${p.oldPrice}
-                            </span>
-                          )}
-                        </div>
-                        {p.oldPrice && (
-                          <div style={{ display: 'inline-block', padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: 13, fontWeight: 700 }}>
-                            Economia de R${(p.oldPrice - p.price).toFixed(0)}
-                          </div>
-                        )}
-                      </div>
-                      <div style={{ fontSize: 56, lineHeight: 1 }}>{emoji}</div>
-                    </div>
-                    <div style={{ height: 2, background: p.badge ? 'rgba(236,72,153,0.6)' : '#27273a', margin: '16px 0' }} />
-                  </CardHeader>
-                  <CardContent>
-                    <div style={{ background: '#0b0e19', border: '1px solid #23233a', borderRadius: 14, padding: 20 }}>
-                      {p.features && p.features.length > 0 ? (
-                        <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 20px 0', display: 'grid', gap: 10 }}>
-                          {p.features.map((f: string, i: number) => {
-                            const isNegative = f.toLowerCase().includes('sem')
-                            return (
-                              <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 15, fontWeight: 600 }}>
-                                <span style={{
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  width: 22,
-                                  height: 22,
-                                  borderRadius: 999,
-                                  border: `1px solid ${isNegative ? 'rgba(239,68,68,0.6)' : 'rgba(16,185,129,0.6)'}`,
-                                  color: isNegative ? '#EF4444' : '#10B981'
-                                }}>
-                                  {isNegative ? '✖' : '✔'}
-                                </span>
-                                <span style={{ opacity: isNegative ? 0.6 : 0.95 }}>{f}</span>
-                              </li>
-                            )
-                          })}
-                        </ul>
-                      ) : (
-                        <div style={{ marginBottom: 20, textAlign: 'center', opacity: 0.6, fontSize: 14 }}>
-                          Consulte os recursos incluídos
-                        </div>
-                      )}
-                      <a
-                        href="/login"
-                        className="pricing-cta-button"
-                        style={{
-                          display: 'block',
-                          width: '100%',
-                          textAlign: 'center',
-                          padding: '14px 18px',
-                          borderRadius: 14,
-                          background: '#EC4899',
-                          color: '#0b0b12',
-                          fontWeight: 800,
-                          fontSize: 16,
-                          letterSpacing: '0.3px',
-                          boxShadow: '0 0 0 2px rgba(255,255,255,0.08), 0 8px 26px rgba(236,72,153,0.35), inset 0 -4px 0 rgba(224,60,130,0.45)',
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        Contratar para meu evento! 🎉
-                      </a>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
+        <section id="virais" style={{ marginTop: 60, marginBottom: 60 }}>
+          <h2 className="section-title">Eventos que <span style={{ color: '#EC4899' }}>viralizaram</span></h2>
+          <div className="social-grid">
+            {landing.videos?.map((u: string, i: number) => (
+              <div key={i} className="phone-card">
+                <SocialEmbed url={u} />
+                <div className="phone-foot" />
+              </div>
+            ))}
           </div>
         </section>
 
@@ -356,30 +337,13 @@ export default async function Page() {
           </div>
         </section>
 
-        <section id="como" style={{ marginTop: 60 }}>
-          <h2 style={{ marginBottom: 12 }}>Como Fazer</h2>
-          <ol style={{ lineHeight: 1.8 }}>
-            <li>Crie sua conta</li>
-            <li>Cadastre seu evento</li>
-            <li>Compartilhe o QR Code e comece a receber interações</li>
-          </ol>
-        </section>
 
-        <section id="virais" style={{ marginTop: 60 }}>
-          <h2 className="section-title">Eventos que <span style={{ color: '#EC4899' }}>viralizaram</span></h2>
-          <div className="social-grid">
-            {landing.videos?.map((u: string, i: number) => (
-              <div key={i} className="phone-card">
-                <SocialEmbed url={u} />
-                <div className="phone-foot" />
-              </div>
-            ))}
-          </div>
-        </section>
+
+
       </div>
 
       {/* Botão Flutuante WhatsApp */}
       <WhatsAppButton />
-    </>
+    </div>
   )
 }

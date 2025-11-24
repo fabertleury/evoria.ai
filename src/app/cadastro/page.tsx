@@ -37,14 +37,18 @@ export default function CadastroPage() {
                     return
                 }
 
-                // Criar novo usuário (anfitrião)
+                // Recuperar código de afiliado se existir
+                const affiliateCode = localStorage.getItem('evoria_affiliate_code')
+
+                // Criar novo usuário (anfitrião/cliente)
                 const registerRes = await fetch('/api/auth/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         username: formData.username,
                         email: formData.email,
-                        password: formData.password
+                        password: formData.password,
+                        affiliateCode // Enviar código de afiliado
                     })
                 })
 
@@ -73,8 +77,19 @@ export default function CadastroPage() {
             // Salvar token
             localStorage.setItem('evoria_token', data.token)
 
-            // Redirecionar para painel do anfitrião
-            router.push('/anfitriao/dashboard')
+            // Redirecionar baseado no role e contexto
+            if (data.user?.role === 'admin') {
+                router.push('/admin/dashboard')
+            } else {
+                // Se for registro novo, vai para onboarding
+                if (!isLogin) {
+                    router.push('/cliente/onboarding')
+                } else {
+                    // Se for login, vai direto para dashboard
+                    router.push('/cliente/dashboard')
+                }
+            }
+
         } catch (err: any) {
             setError(err.message || 'Erro ao processar solicitação')
         } finally {

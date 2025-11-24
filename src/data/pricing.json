@@ -3,33 +3,54 @@
     {
       "key": "basic",
       "name": "Básico",
-      "price": 29,
+      "price": 299,
       "oldPrice": null,
       "badge": null,
       "emoji": "🧸",
       "features": [
-        "1 Evento disponível",
-        "Geração de QR CODE e Link para os convidados",
-        "250 stories disponíveis (após isso os primeiros são deletados)",
-        "Convidados não precisam logar"
+        "Stories Compartilhados",
+        "Até 100 convidados",
+        "QR Code Personalizado"
       ]
     },
     {
       "key": "premium",
       "name": "Premium",
-      "price": 79,
-      "oldPrice": 100,
+      "price": 599,
+      "oldPrice": 799,
       "badge": "Mais escolhido",
       "emoji": "💝",
       "features": [
-        "3 Eventos disponíveis",
+        "2 Eventos disponíveis",
+        "Stories Compartilhados",
+        "Convites digitais personalizados",
+        "Convidados Ilimitados",
         "Geração de QR CODE e Link para os convidados",
         "500 stories disponíveis (após isso os primeiros são deletados)",
         "Convidados não precisam logar",
         "Telão ao vivo em tempo real",
-        "Moderação de conteúdo (aprovar/rejeitar fotos)",
+        "Feed ao vivo em tempo real",
+        "Moderação de conteúdo (Inteligência Artificial)",
         "Filtros e efeitos especiais para convidados",
-        " Convites digitais personalizados"
+        "Feed Ao Vivo",
+        "Telão Interativo"
+      ]
+    },
+    {
+      "key": "enterprise",
+      "name": "White Label",
+      "price": 0,
+      "oldPrice": null,
+      "badge": "Para Empresas",
+      "emoji": "🏢",
+      "features": [
+        "Sua marca no sistema",
+        "Domínio personalizado",
+        "Painel Multi-cliente",
+        "Gestão de múltiplos eventos",
+        "API para integração",
+        "Suporte dedicado 24/7",
+        "Treinamento para equipe"
       ]
     }
   ]

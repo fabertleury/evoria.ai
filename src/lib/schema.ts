@@ -25,6 +25,7 @@ export const users = pgTable('users', {
   username: text('username').notNull().unique(),
   password: text('password').notNull(),
   role: roleEnum('role').notNull().default('anfitriao'),
+  referredBy: text('referred_by'), // Username ou código de quem indicou
 })
 
 export const insertUserSchema = createInsertSchema(users).pick({ username: true, password: true })

@@ -13,14 +13,17 @@ export default function SocialEmbed({ url, className }: { url: string; className
   const ref = useRef<HTMLDivElement>(null)
   const isTikTok = /tiktok\.com/.test(url)
   const isInstagram = /instagram\.com/.test(url)
+  const isVideo = /\.mp4$/i.test(url)
+
   useEffect(() => {
     if (isTikTok) ensureScript('https://www.tiktok.com/embed.js')
     if (isInstagram) ensureScript('https://www.instagram.com/embed.js')
     const id = setTimeout(() => { (window as any).instgrm?.Embeds?.process?.() }, 300)
     return () => clearTimeout(id)
   }, [url])
+
   return (
-    <div ref={ref} className={`social-embed ${className||''}`}>
+    <div ref={ref} className={`social-embed ${className || ''}`}>
       {isTikTok && (
         <blockquote className="tiktok-embed" cite={url} data-video-id="" style={{ width: '100%', height: '100%' }}>
           <section>
@@ -33,7 +36,15 @@ export default function SocialEmbed({ url, className }: { url: string; className
           <a target="_blank" rel="noopener" href={url}>Ver no Instagram</a>
         </blockquote>
       )}
-      {!isTikTok && !isInstagram && (
+      {isVideo && (
+        <video
+          src={url}
+          controls
+          className="w-full h-full object-cover rounded-2xl"
+          style={{ width: '100%', height: '100%', borderRadius: '18px' }}
+        />
+      )}
+      {!isTikTok && !isInstagram && !isVideo && (
         <a target="_blank" rel="noopener" href={url}>Abrir vídeo</a>
       )}
     </div>
